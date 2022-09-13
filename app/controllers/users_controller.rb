@@ -1,4 +1,4 @@
-require 'jwt'
+require 'json_web_token'
 
 class UsersController < ApplicationController
   def sign_up
@@ -6,6 +6,9 @@ class UsersController < ApplicationController
     if @user.save
       render json: {
         message: 'success'
+          token: JsonWebToken.encode({
+          sub: @user.id
+        })
       } 
     else
       render json:{
@@ -15,26 +18,24 @@ class UsersController < ApplicationController
   end
 
   def sign_in
-    @user = User.find_by( encrypted_password: params[:encrypted_password])
-    # @user = User.all
-    render json: params[:encrypted_password]
-    # if @user && @user.valid_password?(params[:password])
-    #   render json: {
-    #     message: 'sucesss',
-    #     token: JsonWebToken.encode({
-    #                                  sub: @user.id
-    #                                })
-    #   }
-    # else
-    #   render json: {
-    #     message: 'failed'
-    #   }, status: 400
-    # end
+    @user = User.find_by( email: params[:email])
+    if @user && @user.valid_password?(params[:password])
+      render json: {
+        message: 'sucesss',
+        token: JsonWebToken.encode({
+                                     sub: @user.id
+                                   })
+      }
+    else
+      render json: {
+        message: 'failed'
+      }, status: 400
+    end
   end
 
   private
     def user_params
-      params.require(:user).permit(:email, :password)
+      params.permit(:email, :password)
     end
 
     
