@@ -16,6 +16,8 @@ Rails.application.routes.draw do
         resources :sessions
         resources :users
         resources :gifts, only: [:create]
+        resources :authors
+        resources :categories
       end
     end
   end

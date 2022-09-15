@@ -1,4 +1,4 @@
 class GiftSerializer < ActiveModel::Serializer
-  attributes :name, :score
-
+  attributes :name, :score, :stock
+  has_many :readergifts
 end

@@ -10,5 +10,5 @@ class Reader < ApplicationRecord
          validates :phonenumber , presence: true, numericality: { only_integer: true }, length: { is: 10 }
          validates :address, presence: true, length: {minimum: 8, maximum: 255}
          validates :password , length: {minimum: 8, maximum: 255}
-  
+  has_and_belongs_to_many :gift, join_table: 'readergifts'
 end

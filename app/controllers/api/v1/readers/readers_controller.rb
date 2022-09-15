@@ -14,7 +14,7 @@ module Api
           else 
             render json: {
               message: "failed",
-              error: @reader.errors.messages
+              validation: @reader.errors.messages
             }, status: 400 
           end
         end
