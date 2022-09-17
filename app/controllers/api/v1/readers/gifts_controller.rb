@@ -6,8 +6,6 @@ module Api
           @gifts = Gift.all
           render json: @gifts
         end
-
-       
       end 
     end
   end

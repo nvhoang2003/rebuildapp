@@ -13,7 +13,8 @@ module Api
             }
           else
             render json: {
-              message: "failed"
+              message: "failed",
+              validate: "Wrong Email Or Password"
             }, status: 400
           end
         end

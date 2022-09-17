@@ -11,13 +11,16 @@ Rails.application.routes.draw do
         resources :readers
         resources :sessions
         resources :gifts, only: [:index]
+        resources :authors, only: [:index]
+        resources :account_activations, only: [:edit]
       end
       namespace :users do
         resources :sessions
         resources :users
-        resources :gifts, only: [:create]
+        resources :gifts
         resources :authors
         resources :categories
+        resources :readers, only: [:index]
       end
     end
   end

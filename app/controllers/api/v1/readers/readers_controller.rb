@@ -3,13 +3,14 @@ module Api
     module Readers
       class ReadersController < ApplicationController
         def create
-          @reader = Reader.new(reader_params)
-          if @reader.save
+          @reader = Reader.create(reader_params)
+          if @reader.create
             render json: {
-              message: "success",
-              token: ::JsonWebToken.encode({
-                                            sub: @reader.id
-              })
+              message: "success"
+              # ,
+              # token: ::JsonWebToken.encode({
+              #                               sub: @reader.id
+              # })
             }
           else 
             render json: {
