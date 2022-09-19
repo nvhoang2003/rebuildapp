@@ -2,4 +2,6 @@
 
 <p>
   <%= @greeting %>, find me in app/views/active_mailer/active_signin.html.erb
+  <%= link_to "Activate", edit_api_v1_readers_account_activation_url(@reader.activation_token,
+email: @reader.email) %>
 </p>

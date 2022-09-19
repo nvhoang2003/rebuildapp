@@ -1,3 +1,4 @@
 Active#active_signin
 
 <%= @greeting %>, find me in app/views/active_mailer/active_signin.text.erb
+<%= edit_api_v1_readers_account_activation_url(@reader.activation_token, email: @reader.email) %> 

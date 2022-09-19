@@ -2,12 +2,17 @@ module Api
   module V1
     module Users
       class UsersController < ApplicationController
+        def index
+          @users = User.all
+          render json: @users
+        end
+
         def create
           @user = User.new(user_params)
           if @user.save
             render json: {
               message: 'success',
-                token: ::JsonWebToken.encode({
+                token: JsonWebToken.encode({
                                               sub: @user.id
               })
             } 

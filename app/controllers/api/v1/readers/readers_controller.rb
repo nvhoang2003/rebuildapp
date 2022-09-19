@@ -3,8 +3,9 @@ module Api
     module Readers
       class ReadersController < ApplicationController
         def create
-          @reader = Reader.create(reader_params)
-          if @reader.create
+          @reader = Reader.new(reader_params)
+          if @reader.save
+            ActiveMailer.active_signin(@reader).deliver_now
             render json: {
               message: "success"
               # ,
