@@ -3,9 +3,15 @@ module Api
     module Users
       class ReadersController < ApplicationController
         def index
-          @readers = Reader.all
-          render json: @readers 
+          @q = Reader.ransack(params[:q])
+          @readers = @q.result(distinct: true)
+          render json: @readers
+
+          # render 'abc'
         end
+
+        # private
+        #   params 
       end
     end
   end

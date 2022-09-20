@@ -1,5 +1,6 @@
 class ReaderSerializer < ActiveModel::Serializer
-  attributes :id, :name, :email, :age, :address, :convert_gender
+  attributes :id, :name, :email, :age, :address
+  
   # , :readergifts
   # def convert_gender
   #   if :gender == "1"
