@@ -7,7 +7,7 @@ module Api
           if @reader.save
             ActiveMailer.active_signin(@reader).deliver_now
             render json: {
-              message: "success"
+              message: "Wait email message"
               # ,
               # token: ::JsonWebToken.encode({
               #                               sub: @reader.id
