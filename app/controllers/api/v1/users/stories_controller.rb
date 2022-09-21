@@ -1,46 +1,46 @@
 module Api
   module V1
     module Users
-      class CategoriesController < ApplicationController
+      class StoriesController < ApplicationController
         def create
-          @category = Category.new(category_params)
-          if @category.save
+          @story = Story.new(story_params)
+          if @story.save
             render json: {
-              message: 'success'
+              message: "success"
             }
           else
-            render json:{
-              message: 'failed',
-              validation: @category.errors.messages
+            render json: {
+              message: "failed",
+              validation: @story.errors.messages
             }, status: 400
           end
         end
 
         def index
-          @categories = Category.all
-          render json: @categories
+          @stories = Story.all
+          render json: @stories
         end
 
         def edit
-          @category = Category.find(params[:id])
-          render json: @category
+          @story = Story.find(params[:id])
+          render json: @story
         end
         
         def update
-          @category = Category.find(params[:id])
-            if @category.update(category_params)
+          @story = Story.find(params[:id])
+            if @story.update(story_params)
               render json: "Update Successfully"
             else
               render json:{
                 message: "Failed",
-                validation: @category.errors.messages
+                validation: @story.errors.messages
               }, status: 400
             end
         end
         
         def destroy
-          @category = Category.find(params[:id])
-          if @category.destroy
+          @story = Story.find(params[:id])
+          if @story.destroy
             render json: {
               message: "destroy successfuly"
             }
@@ -50,10 +50,11 @@ module Api
             }, status: 400
           end
         end
+        
 
         private
-          def category_params
-            params.permit(:name, :description)
+          def story_params
+            params.permit(:name, :author_id)
           end
       end
     end

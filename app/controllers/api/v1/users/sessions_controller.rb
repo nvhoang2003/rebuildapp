@@ -5,12 +5,23 @@ module Api
         def create
           @user = User.find_by( email: params[:email])
           if @user && @user.valid_password?(params[:password])
+            sign_in(:user, @user)
             render json: {
               message: 'sucesss',
               token: ::JsonWebToken.encode({
                                            sub: @user.id
                                          })
             }
+            
+            # if user_signed_in?
+            #   render json: {
+            #     message: current_user
+            #   }
+            # else
+            #   render json: {
+            #     message: "chua dn tc"
+            #   }
+            # end
           else
             render json: {
               message: 'failed',

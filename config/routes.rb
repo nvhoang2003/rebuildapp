@@ -22,6 +22,7 @@ Rails.application.routes.draw do
         resources :categories
         resources :readers, only: [:index]
         resources :chapters
+        resources :comments
       end
     end
   end
