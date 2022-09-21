@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_09_20_022755) do
+ActiveRecord::Schema.define(version: 2022_09_21_033118) do
 
   create_table "active_storage_attachments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -55,8 +55,32 @@ ActiveRecord::Schema.define(version: 2022_09_20_022755) do
   end
 
   create_table "chapters", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "name"
+    t.bigint "story_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["story_id"], name: "index_chapters_on_story_id"
+  end
+
+  create_table "comment_reader", id: false, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "reader_id", null: false
+    t.bigint "comment_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["comment_id"], name: "index_comment_reader_on_comment_id"
+    t.index ["reader_id"], name: "index_comment_reader_on_reader_id"
+  end
+
+  create_table "comments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "title"
+    t.integer "like", default: 0, null: false
+    t.bigint "reader_id", null: false
+    t.integer "repcmt"
+    t.bigint "chapter_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["chapter_id"], name: "index_comments_on_chapter_id"
+    t.index ["reader_id"], name: "index_comments_on_reader_id"
   end
 
   create_table "gift_reader", id: false, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -74,6 +98,17 @@ ActiveRecord::Schema.define(version: 2022_09_20_022755) do
     t.integer "stock"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "reader_story", id: false, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "reader_id", null: false
+    t.bigint "story_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "chap"
+    t.datetime "read_at"
+    t.index ["reader_id"], name: "index_reader_story_on_reader_id"
+    t.index ["story_id"], name: "index_reader_story_on_story_id"
   end
 
   create_table "readers", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -114,5 +149,8 @@ ActiveRecord::Schema.define(version: 2022_09_20_022755) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "chapters", "stories"
+  add_foreign_key "comments", "chapters"
+  add_foreign_key "comments", "readers"
   add_foreign_key "stories", "authors"
 end

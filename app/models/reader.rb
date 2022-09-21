@@ -14,6 +14,8 @@ class Reader < ApplicationRecord
          validates :address, presence: true, length: {minimum: 8, maximum: 255}
          validates :password , length: {minimum: 8, maximum: 255}
   has_and_belongs_to_many :gift, join_table: 'readergifts'
+  has_and_belongs_to_many :story, join_table: 'readerstories'
+
 
   def self.digest(string)
     cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
