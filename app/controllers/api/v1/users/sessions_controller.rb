@@ -30,6 +30,15 @@ module Api
           end
         end
       
+        def destroy
+          current_user = User.first
+          sign_out(current_user= nil)
+          render json: {
+            message: "success",
+            user: current_user
+          }
+        end
+
       end
     end
   end

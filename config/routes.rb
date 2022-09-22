@@ -5,17 +5,19 @@ Rails.application.routes.draw do
   # post 'admin/sign_up', to: 'users#sign_up'
   # post 'reader/register', to: 'readers#sign_up'
   # post 'reader/login', to: 'sessions#create'
+  delete '/adminlogout', to: 'api/v1/users/sessions#destroy'
+  post
   namespace :api do
     namespace :v1 do
       namespace :readers do
         resources :readers
-        resources :sessions
+        resources :sessions, only: [:create]
         resources :gifts, only: [:index]
         resources :authors, only: [:index]
         resources :account_activations, only: [:edit]
       end
       namespace :users do
-        resources :sessions
+        resources :sessions, only:[:create]
         resources :users
         resources :gifts
         resources :authors
