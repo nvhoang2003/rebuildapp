@@ -4,6 +4,7 @@ module Api
       class GiftsController < ApplicationController
         def create
           @gift = Gift.new(gift_params)
+          @gift.image.attach(params[:gift][:image])
           if @gift.save
             render json: {
               message: "success"

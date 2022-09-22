@@ -4,6 +4,7 @@ module Api
       class StoriesController < ApplicationController
         def create
           @story = Story.new(story_params)
+          @story.image.attach(params[:story][:image])
           if @story.save
             render json: {
               message: "success"

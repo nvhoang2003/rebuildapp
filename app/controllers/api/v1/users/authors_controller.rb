@@ -4,6 +4,7 @@ module Api
       class AuthorsController < ApplicationController
         def create
           @author = Author.new(author_params)
+          @author.image.attach(params[:author][:image])
           if @author.save
             render json: {
               message: 'Success'

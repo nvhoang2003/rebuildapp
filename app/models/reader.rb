@@ -3,8 +3,7 @@ class Reader < ApplicationRecord
   before_create :create_token
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+  devise :database_authenticatable
          validates :name, presence: true,  uniqueness: true
          VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i 
          validates :email, format: {with: VALID_EMAIL_REGEX}
@@ -15,7 +14,7 @@ class Reader < ApplicationRecord
          validates :password , length: {minimum: 8, maximum: 255}
   has_and_belongs_to_many :gift, join_table: 'readergifts'
   has_and_belongs_to_many :story, join_table: 'readerstories'
-
+  has_one_attached :image
 
   def self.digest(string)
     cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
